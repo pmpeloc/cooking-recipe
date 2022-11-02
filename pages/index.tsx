@@ -7,7 +7,7 @@ import { Filter, FloatButton, Search } from '../components/ui';
 const HomePage: NextPage = () => {
   return (
     <MainLayout title='Recetas de Cocina'>
-      <Grid sx={{ margin: '16px 20px' }}>
+      <Grid sx={{ marginInline: '1.25rem', marginTop: '2.5rem' }}>
         <Typography variant='h2'>Recetas de Cocina</Typography>
         <Box display='flex' style={{ marginTop: '1rem' }}>
           <Search />

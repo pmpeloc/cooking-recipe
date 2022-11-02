@@ -1,14 +1,10 @@
 import { FC, useState } from 'react';
 import {
-  Checkbox,
   FormControl,
   FormControlLabel,
-  InputLabel,
   ListItemText,
   MenuItem,
-  OutlinedInput,
   Radio,
-  RadioGroup,
   Select,
   SelectChangeEvent,
 } from '@mui/material';
@@ -19,62 +15,60 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      width: '16.25rem',
+      color: '#1E3646',
+      borderRadius: '1rem',
     },
   },
 };
 
-const names = ['Todos', 'Activos', 'Inactivos'];
+export const filters = ['Todos', 'Activos', 'Inactivos'];
 
 export const Filter: FC = () => {
-  const [personName, setPersonName] = useState<string[]>([]);
+  const [cookedBefore, setCookedBefore] = useState<string>('Todos');
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (event: SelectChangeEvent<typeof cookedBefore>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    );
+    setCookedBefore(value);
   };
+  console.log({ cookedBefore });
 
   return (
-    <FormControl sx={{ m: 1, width: 216 }}>
-      <InputLabel id='demo-multiple-checkbox-label'>Cocido antes:</InputLabel>
+    <FormControl sx={{ m: 1, width: '16rem' }}>
       <Select
-        labelId='demo-multiple-checkbox-label'
-        id='demo-multiple-checkbox'
-        multiple
-        defaultValue={[names[0]]}
+        labelId='filter-checkbox-label'
+        id='filter-checkbox'
+        defaultValue={filters[0]}
         defaultChecked={true}
-        value={personName}
+        value={cookedBefore}
         onChange={handleChange}
-        input={<OutlinedInput label='Cocido antes:' />}
-        renderValue={(selected) => selected.join(', ')}
-        MenuProps={MenuProps}>
-        {/* {names.map((name) => (
-          <MenuItem key={name} value={name}>
-            <Checkbox checked={personName.indexOf(name) > -1} />
-            <ListItemText primary={name} />
+        renderValue={(selected) => {
+          return (
+            <>
+              Cocido antes:
+              <strong> {selected}</strong>
+            </>
+          );
+        }}
+        MenuProps={MenuProps}
+        style={{
+          backgroundColor: '#EBF0F3',
+          color: '#1E3646',
+        }}>
+        {filters.map((filter) => (
+          <MenuItem key={filter} value={filter} style={{ paddingBlock: 0 }}>
+            <ListItemText primary={filter} />
+            <FormControlLabel
+              value={filter}
+              control={<Radio />}
+              label=''
+              checked={cookedBefore === filter}
+              style={{ marginRight: 0 }}
+            />
           </MenuItem>
-        ))} */}
-        <RadioGroup
-          aria-labelledby='demo-radio-buttons-group-label'
-          defaultValue='all'
-          name='radio-buttons-group'>
-          <FormControlLabel value='all' control={<Radio />} label='Todos' />
-          <FormControlLabel
-            value='active'
-            control={<Radio />}
-            label='Activos'
-          />
-          <FormControlLabel
-            value='inactive'
-            control={<Radio />}
-            label='Inactivos'
-          />
-        </RadioGroup>
+        ))}
       </Select>
     </FormControl>
   );

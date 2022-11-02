@@ -51,5 +51,21 @@ export const lightTheme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#F9F9F9',
+          borderRadius: '1rem',
+          fontSize: '0.875rem',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          paddingLeft: '1.5rem',
+        },
+      },
+    },
   },
 });

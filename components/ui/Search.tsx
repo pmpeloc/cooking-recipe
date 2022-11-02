@@ -13,7 +13,7 @@ export const Search: FC = () => {
         InputProps={{
           startAdornment: (
             <IconButton>
-              <SearchOutlined />
+              <SearchOutlined style={{ width: '2rem', height: '2rem' }} />
             </IconButton>
           ),
         }}
