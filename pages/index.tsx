@@ -4,7 +4,7 @@ import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { UIContext } from '../context/ui';
 import { MainLayout } from '../components/layouts';
-import { Filter, FloatButton, Search } from '../components/ui';
+import { Filter, FloatButton, Search, Table } from '../components/ui';
 
 const HomePage: NextPage = () => {
   const { openSideMenu } = useContext(UIContext);
@@ -13,6 +13,9 @@ const HomePage: NextPage = () => {
 
   const isSM = useMediaQuery(theme.breakpoints.up('xs'));
   const matches = useMediaQuery('(min-width:600px)');
+  const matchesTablet = useMediaQuery(
+    '(max-width:768px) and (min-width:599px)'
+  );
 
   return (
     <MainLayout title='Recetas de Cocina'>
@@ -51,8 +54,13 @@ const HomePage: NextPage = () => {
           }}>
           <Filter />
         </Grid>
-        <Grid item style={{ marginTop: '2.5rem' }}>
-          RECETAS
+        <Grid
+          item
+          style={{
+            marginTop: '2.5rem',
+            marginInline: `${matchesTablet ? 'auto' : 'inherit'}`,
+          }}>
+          <Table />
         </Grid>
       </Grid>
       <FloatButton title='Añadir receta' action={openSideMenu} />

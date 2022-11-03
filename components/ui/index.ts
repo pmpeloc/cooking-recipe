@@ -4,3 +4,4 @@ export { FloatButton } from './FloatButton';
 export { Navbar } from './Navbar';
 export { Search } from './Search';
 export { Sidebar } from './Sidebar';
+export { Table } from './Table';
