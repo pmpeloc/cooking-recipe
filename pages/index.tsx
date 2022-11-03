@@ -8,6 +8,7 @@ const HomePage: NextPage = () => {
   const theme = useTheme();
 
   const isSM = useMediaQuery(theme.breakpoints.up('xs'));
+  const matches = useMediaQuery('(min-width:600px)');
 
   return (
     <MainLayout title='Recetas de Cocina'>
@@ -16,11 +17,13 @@ const HomePage: NextPage = () => {
         spacing={2}
         sx={{
           marginLeft: `${isSM ? '0rem' : '1.25rem'}`,
-          marginTop: '2.5rem',
+          marginTop: `${matches ? '2.5rem' : '1rem'}`,
         }}>
-        <Grid item xs={12}>
-          <Typography variant='h2'>Recetas de Cocina</Typography>
-        </Grid>
+        {matches && (
+          <Grid item xs={12}>
+            <Typography variant='h2'>Recetas de Cocina</Typography>
+          </Grid>
+        )}
         <Grid
           item
           xs={12}
@@ -44,8 +47,8 @@ const HomePage: NextPage = () => {
           }}>
           <Filter />
         </Grid>
-        <FloatButton />
       </Grid>
+      <FloatButton />
     </MainLayout>
   );
 };

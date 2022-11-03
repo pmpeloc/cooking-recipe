@@ -16,8 +16,8 @@ export const MainLayout: FC<Props> = ({
   const theme = useTheme();
 
   const showAside = useMediaQuery(theme.breakpoints.up('md'));
-  const isSM = useMediaQuery(theme.breakpoints.up('xs'));
   const isXS = useMediaQuery(theme.breakpoints.only('xs'));
+  const matches = useMediaQuery('(max-width:899px)');
 
   return (
     <>
@@ -33,7 +33,7 @@ export const MainLayout: FC<Props> = ({
           component='main'
           sx={{
             padding: `4rem ${isXS ? '0rem' : '2.5rem'} 0 ${
-              isSM ? '0rem' : '1.8rem'
+              matches ? '0rem' : '1.8rem'
             }`,
             flexGrow: 1,
             marginTop: '1rem',
