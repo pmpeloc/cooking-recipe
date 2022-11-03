@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import type { NextPage } from 'next';
 import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 
+import { UIContext } from '../context/ui';
 import { MainLayout } from '../components/layouts';
 import { Filter, FloatButton, Search } from '../components/ui';
 
 const HomePage: NextPage = () => {
+  const { openSideMenu } = useContext(UIContext);
+
   const theme = useTheme();
 
   const isSM = useMediaQuery(theme.breakpoints.up('xs'));
@@ -47,8 +51,11 @@ const HomePage: NextPage = () => {
           }}>
           <Filter />
         </Grid>
+        <Grid item style={{ marginTop: '2.5rem' }}>
+          RECETAS
+        </Grid>
       </Grid>
-      <FloatButton />
+      <FloatButton title='Añadir receta' action={openSideMenu} />
     </MainLayout>
   );
 };

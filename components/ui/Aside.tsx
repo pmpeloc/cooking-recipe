@@ -13,6 +13,7 @@ export const Aside: FC = () => {
           width: '342px',
           height: '944px',
           boxSizing: 'border-box',
+          borderRight: 'none',
         },
       }}>
       <Toolbar />

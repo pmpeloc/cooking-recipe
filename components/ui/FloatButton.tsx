@@ -1,30 +1,29 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { Fab, Tooltip, useMediaQuery } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { UIContext } from '../../context/ui';
 
-const fabStyle = {
-  position: 'absolute',
-  bottom: '1rem',
-  right: '1.563rem',
-};
+interface Props {
+  title: string;
+  action: () => void;
+}
 
-export const FloatButton: FC = () => {
-  const { openSideMenu } = useContext(UIContext);
-
+export const FloatButton: FC<Props> = ({
+  title = 'Añadir receta',
+  action = () => {},
+}) => {
   const matches = useMediaQuery('(max-width:599px)');
 
   return (
-    <Tooltip title='Añadir receta' placement='left' arrow>
+    <Tooltip title={title} placement='left' arrow>
       <Fab
         color='primary'
-        aria-label='Añadir receta'
+        aria-label={title}
         sx={{
           position: 'absolute',
           bottom: `${matches ? '-0.4rem' : '1rem'}`,
           right: `${matches ? '0.5rem' : '1.563rem'}`,
         }}
-        onClick={openSideMenu}>
+        onClick={action}>
         <AddIcon />
       </Fab>
     </Tooltip>
