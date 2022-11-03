@@ -1,71 +1,74 @@
 import { FC } from 'react';
 import { styled } from '@mui/material/styles';
-import { Table as TableMui, useMediaQuery } from '@mui/material';
-import TableBody from '@mui/material/TableBody';
+import {
+  Table as TableMui,
+  useMediaQuery,
+  Rating,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
+import { Switch } from './Switch';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: '#79797A',
+    fontSize: '0.75rem',
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: '0.875rem',
+    color: '#19191A',
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: theme.palette.common.white,
   },
   // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover,
+  },
 }));
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
+function createData(name: string, review: number, cookedBefore: boolean) {
+  return {
+    name,
+    review: (
+      <Rating
+        name='read-only'
+        value={review}
+        max={4}
+        readOnly
+        style={{ fontSize: '1.2rem' }}
+      />
+    ),
+    cookedBefore: <Switch sx={{ m: 1 }} defaultChecked={cookedBefore} />,
+  };
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt 2', 159, 6.0, 24, 4.0),
-  createData('Ice cream sawwwndwich', 237, 9.0, 37, 4.3),
-  createData('Eclawewir', 262, 16.0, 24, 6.0),
-  createData('Cupcasawke', 305, 3.7, 67, 4.3),
-  createData('Gingerbressad', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghursd', 159, 6.0, 24, 4.0),
-  createData('Ice cream676 sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair32', 262, 16.0, 24, 6.0),
-  createData('Cu020pcake', 305, 3.7, 67, 4.3),
-  createData('Ginqqqqgerbread', 356, 16.0, 49, 3.9),
+  createData('Melodía de bayas mixtas', 4, true),
+  createData('Sopa tailandesa de coliflor al curry rojo', 2, false),
 ];
 
 export const Table: FC = () => {
   const matchesMobile = useMediaQuery('(max-width:599px)');
-  const matchesTablet = useMediaQuery('(max-width:768px)');
-  const matchesLaptop = useMediaQuery('(max-width:1024px)');
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={0}>
       <TableContainer
         sx={{
           maxHeight: `calc(100vh - ${matchesMobile ? '0rem' : '24.3rem'})`,
+          overflowX: 'hidden',
         }}>
         <TableMui
           stickyHeader
@@ -73,23 +76,21 @@ export const Table: FC = () => {
           aria-label='customized table'>
           <TableHead>
             <TableRow>
-              <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-              <StyledTableCell align='right'>Calories</StyledTableCell>
-              <StyledTableCell align='right'>Fat&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align='right'>Carbs&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align='right'>Protein&nbsp;(g)</StyledTableCell>
+              <StyledTableCell>Nombre de la receta</StyledTableCell>
+              <StyledTableCell align='right'>Reseñas</StyledTableCell>
+              <StyledTableCell align='right'>Cocinado antes</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {rows.map((row, index) => (
+              <StyledTableRow key={index}>
                 <StyledTableCell component='th' scope='row'>
                   {row.name}
                 </StyledTableCell>
-                <StyledTableCell align='right'>{row.calories}</StyledTableCell>
-                <StyledTableCell align='right'>{row.fat}</StyledTableCell>
-                <StyledTableCell align='right'>{row.carbs}</StyledTableCell>
-                <StyledTableCell align='right'>{row.protein}</StyledTableCell>
+                <StyledTableCell align='right'>{row.review}</StyledTableCell>
+                <StyledTableCell align='right'>
+                  {row.cookedBefore}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
