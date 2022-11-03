@@ -7,6 +7,8 @@ import {
   Radio,
   Select,
   SelectChangeEvent,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 const ITEM_HEIGHT = 48;
@@ -27,16 +29,19 @@ export const filters = ['Todos', 'Activos', 'Inactivos'];
 export const Filter: FC = () => {
   const [cookedBefore, setCookedBefore] = useState<string>('Todos');
 
+  const theme = useTheme();
+
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'));
+
   const handleChange = (event: SelectChangeEvent<typeof cookedBefore>) => {
     const {
       target: { value },
     } = event;
     setCookedBefore(value);
   };
-  console.log({ cookedBefore });
 
   return (
-    <FormControl sx={{ m: 1, width: '16rem' }}>
+    <FormControl sx={{ width: '100%', maxWidth: `${isXS ? 'none' : '14rem'}` }}>
       <Select
         labelId='filter-checkbox-label'
         id='filter-checkbox'
