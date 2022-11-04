@@ -75,6 +75,7 @@ export const Table: FC = () => {
           overflowX: 'hidden',
         }}>
         <TableMui
+          size='small'
           stickyHeader
           sx={{ minWidth: 700, width: 'calc(100vw - 28rem)' }}
           aria-label='customized table'>
