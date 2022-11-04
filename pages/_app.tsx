@@ -9,14 +9,17 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { UIProvider } from '../context/ui';
 import { lightTheme, darkTheme } from '../themes';
+import { RecipeProvider } from '../context/recipe';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <UIProvider>
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <RecipeProvider>
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </RecipeProvider>
     </UIProvider>
   );
 };

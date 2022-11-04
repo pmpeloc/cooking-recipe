@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import {
   Table as TableMui,
@@ -13,7 +13,7 @@ import {
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 import { Switch } from './Switch';
-import { recipesMock } from '../../mock/data';
+import { RecipeContext } from '../../context/recipe';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -56,51 +56,76 @@ export const createData = (
         style={{ fontSize: '1.2rem' }}
       />
     ),
-    cookedBefore: <Switch sx={{ m: 1 }} defaultChecked={cookedBefore} />,
+    cookedBefore: (
+      <Switch
+        sx={{ m: 1 }}
+        checked={cookedBefore}
+        onChange={() => console.log('cambio')}
+      />
+    ),
+    status: cookedBefore,
   };
 };
 
-const rows = recipesMock.map((recipe) =>
-  createData(recipe.name, recipe.review, recipe.cookedBefore)
-);
-
 export const Table: FC = () => {
+  const [rows, setRows] = useState<any[]>([]);
+
+  const { recipeList } = useContext(RecipeContext);
+
   const matchesMobile = useMediaQuery('(max-width:599px)');
+
+  useEffect(() => {
+    if (recipeList.length) {
+      const rows = recipeList.map((recipe) =>
+        createData(recipe.name, recipe.review, recipe.cookedBefore)
+      );
+      setRows(rows);
+    }
+  }, [recipeList]);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={0}>
-      <TableContainer
-        sx={{
-          maxHeight: `calc(100vh - ${matchesMobile ? '0rem' : '24.3rem'})`,
-          overflowX: 'hidden',
-        }}>
-        <TableMui
-          size='small'
-          stickyHeader
-          sx={{ minWidth: 700, width: 'calc(100vw - 28rem)' }}
-          aria-label='customized table'>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Nombre de la receta</StyledTableCell>
-              <StyledTableCell align='right'>Reseñas</StyledTableCell>
-              <StyledTableCell align='right'>Cocinado antes</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell component='th' scope='row'>
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align='right'>{row.review}</StyledTableCell>
-                <StyledTableCell align='right'>
-                  {row.cookedBefore}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </TableMui>
-      </TableContainer>
+      {recipeList.length ? (
+        <TableContainer
+          sx={{
+            maxHeight: `calc(100vh - ${matchesMobile ? '0rem' : '24.3rem'})`,
+            overflowX: 'hidden',
+          }}>
+          <TableMui
+            size='small'
+            stickyHeader
+            sx={{ minWidth: 700, width: 'calc(100vw - 28rem)' }}
+            aria-label='customized table'>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Nombre de la receta</StyledTableCell>
+                <StyledTableCell align='right'>Reseñas</StyledTableCell>
+                <StyledTableCell align='right'>Cocinado antes</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => (
+                <StyledTableRow key={index}>
+                  <StyledTableCell
+                    component='th'
+                    scope='row'
+                    style={{
+                      color: `${row.status ? '#19191A' : '#79797A'}`,
+                    }}>
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align='right'>{row.review}</StyledTableCell>
+                  <StyledTableCell align='right'>
+                    {row.cookedBefore}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </TableMui>
+        </TableContainer>
+      ) : (
+        'No se encontraron recetas'
+      )}
     </Paper>
   );
 };

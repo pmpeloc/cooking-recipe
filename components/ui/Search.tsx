@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { FormControl, IconButton, TextField } from '@mui/material';
 import SearchOutlined from '@mui/icons-material/SearchOutlined';
+import { RecipeContext } from '../../context/recipe';
 
 export const Search: FC = () => {
+  const { searchRecipe, recipeFilter } = useContext(RecipeContext);
+
   return (
     <FormControl sx={{ mt: 1, width: '100%', ml: 0 }}>
       <TextField
@@ -10,6 +13,7 @@ export const Search: FC = () => {
         id='search-recipe'
         variant='outlined'
         placeholder='Buscador'
+        onChange={(e) => searchRecipe(e.target.value, recipeFilter)}
         InputProps={{
           startAdornment: (
             <IconButton>

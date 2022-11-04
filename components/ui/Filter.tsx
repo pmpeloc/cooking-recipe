@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import {
   FormControl,
   FormControlLabel,
@@ -10,6 +10,8 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+
+import { RecipeContext } from '../../context/recipe';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,6 +31,8 @@ export const filters = ['Todos', 'Activos', 'Inactivos'];
 export const Filter: FC = () => {
   const [cookedBefore, setCookedBefore] = useState<string>('Todos');
 
+  const { filterRecipe, recipeSearch } = useContext(RecipeContext);
+
   const theme = useTheme();
 
   const isXS = useMediaQuery(theme.breakpoints.only('xs'));
@@ -38,6 +42,7 @@ export const Filter: FC = () => {
       target: { value },
     } = event;
     setCookedBefore(value);
+    filterRecipe(value as 'Todos' | 'Activos' | 'Inactivos', recipeSearch);
   };
 
   return (

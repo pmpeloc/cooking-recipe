@@ -1,4 +1,4 @@
-interface IRecipe {
+export interface IRecipe {
   name: string;
   review: number;
   cookedBefore: boolean;
