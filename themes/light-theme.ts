@@ -60,10 +60,26 @@ export const lightTheme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        multiline: {
+          borderRadius: '4px !important',
+          border: '1px solid #54B5BA',
+          backgroundColor: '#FDFDFD !important',
+        },
+      },
+    },
     MuiSelect: {
       styleOverrides: {
         select: {
           paddingLeft: '1.5rem',
+        },
+      },
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          margin: '0px !important',
         },
       },
     },

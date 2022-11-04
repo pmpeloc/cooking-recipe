@@ -27,3 +27,9 @@ a {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
+
+.drawerTitle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -7rem;
+}
