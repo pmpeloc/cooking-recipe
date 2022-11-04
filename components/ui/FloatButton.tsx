@@ -18,13 +18,18 @@ export const FloatButton: FC<Props> = ({
       <Fab
         color='primary'
         aria-label={title}
+        size='large'
         sx={{
-          position: 'absolute',
-          bottom: `${matches ? '-0.4rem' : '1rem'}`,
-          right: `${matches ? '0.5rem' : '1.563rem'}`,
+          position: 'fixed',
+          bottom: `${'1rem'}`,
+          right: `${'1.563rem'}`,
+          width: matches ? 100 : 50,
+          height: matches ? 100 : 50,
         }}
         onClick={action}>
-        <AddIcon />
+        <AddIcon
+          style={{ width: matches ? 56 : 30, height: matches ? 56 : 30 }}
+        />
       </Fab>
     </Tooltip>
   );

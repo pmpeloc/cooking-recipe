@@ -18,53 +18,58 @@ const HomePage: NextPage = () => {
   );
 
   return (
-    <MainLayout title='Recetas de Cocina'>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          marginLeft: `${isSM ? '0rem' : '1.25rem'}`,
-          marginTop: `${matches ? '2.5rem' : '1rem'}`,
-        }}>
-        {matches && (
-          <Grid item xs={12}>
-            <Typography variant='h2'>Recetas de Cocina</Typography>
+    <>
+      <MainLayout title='Recetas de Cocina'>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            marginLeft: `${isSM ? '0rem' : '1.25rem'}`,
+            marginTop: `${matches ? '2.5rem' : '1rem'}`,
+            height: 'calc(100vh - 130px)',
+          }}>
+          {matches && (
+            <Grid item xs={12}>
+              <Typography variant='h2'>Recetas de Cocina</Typography>
+            </Grid>
+          )}
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            xl={4}
+            style={{
+              marginTop: '1rem',
+              paddingInline: '1rem',
+              height: 80,
+            }}>
+            <Search />
           </Grid>
-        )}
-        <Grid
-          item
-          xs={12}
-          sm={8}
-          xl={4}
-          style={{
-            marginTop: '1rem',
-            paddingInline: '1rem',
-          }}>
-          <Search />
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            xl={8}
+            style={{
+              paddingTop: 9,
+              alignSelf: 'end',
+              paddingInline: '1rem',
+              height: 80,
+            }}>
+            <Filter />
+          </Grid>
+          <Grid
+            item
+            style={{
+              marginTop: '2.5rem',
+              marginInline: `${matchesTablet ? 'auto' : 'inherit'}`,
+            }}>
+            <Table />
+          </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={4}
-          xl={8}
-          style={{
-            marginTop: '1rem',
-            alignSelf: 'end',
-            paddingInline: '1rem',
-          }}>
-          <Filter />
-        </Grid>
-        <Grid
-          item
-          style={{
-            marginTop: '2.5rem',
-            marginInline: `${matchesTablet ? 'auto' : 'inherit'}`,
-          }}>
-          <Table />
-        </Grid>
-      </Grid>
+      </MainLayout>
       <FloatButton title='Añadir receta' action={openSideMenu} />
-    </MainLayout>
+    </>
   );
 };
 
