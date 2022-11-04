@@ -13,6 +13,7 @@ import {
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 import { Switch } from './Switch';
+import { recipesMock } from '../../mock/data';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,7 +40,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name: string, review: number, cookedBefore: boolean) {
+export const createData = (
+  name: string,
+  review: number,
+  cookedBefore: boolean
+) => {
   return {
     name,
     review: (
@@ -53,12 +58,11 @@ function createData(name: string, review: number, cookedBefore: boolean) {
     ),
     cookedBefore: <Switch sx={{ m: 1 }} defaultChecked={cookedBefore} />,
   };
-}
+};
 
-const rows = [
-  createData('Melodía de bayas mixtas', 4, true),
-  createData('Sopa tailandesa de coliflor al curry rojo', 2, false),
-];
+const rows = recipesMock.map((recipe) =>
+  createData(recipe.name, recipe.review, recipe.cookedBefore)
+);
 
 export const Table: FC = () => {
   const matchesMobile = useMediaQuery('(max-width:599px)');
